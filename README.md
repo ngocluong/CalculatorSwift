@@ -1,6 +1,6 @@
 # Pre-work - *tip calculator application for iOS*
 
-Submitted by: *Luong Hong Ngoc**
+Submitted by: **Luong Hong Ngoc**
 
 Time spent: **9** hours spent in total
 
