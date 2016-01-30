@@ -11,6 +11,10 @@ import UIKit
 class SettingsViewController: UIViewController {
 
     @IBOutlet weak var defaultTipControl: UISegmentedControl!
+    @IBOutlet weak var themeSwitch: UISwitch!
+    @IBOutlet weak var topView: UIView!
+    @IBOutlet weak var defaultLabel: UILabel!
+    @IBOutlet weak var darkThemeLabel: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -26,6 +30,13 @@ class SettingsViewController: UIViewController {
         let defaults = NSUserDefaults.standardUserDefaults()
         let defaultPercentageIndex = defaults.integerForKey("default_tip_percentage")
         defaultTipControl.selectedSegmentIndex = defaultPercentageIndex
+        darkThemeLabel.textColor = UIColor.whiteColor()
+        defaultLabel.textColor = UIColor.whiteColor()
+        defaultTipControl.tintColor = UIColor.whiteColor()
+        
+        let darkTheme = defaults.boolForKey("dark_theme")
+        themeSwitch.setOn(darkTheme, animated: true)
+        setTheme(darkTheme)
     }
     
     
@@ -36,14 +47,21 @@ class SettingsViewController: UIViewController {
         defaults.synchronize()
     }
 
-    /*
-    // MARK: - Navigation
+    @IBAction func onSwitchChanged(sender: UISwitch) {
+        let defaults = NSUserDefaults.standardUserDefaults()
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        defaults.setBool(themeSwitch.on, forKey: "dark_theme")
+        defaults.synchronize()
+        setTheme(themeSwitch.on)
     }
-    */
-
+    
+    func setTheme(darkTheme: Bool) {
+        if darkTheme {
+            topView.backgroundColor = UIColor(red: 13/225, green: 48/225, blue: 93/225, alpha: 1)
+            view.backgroundColor = UIColor(red: 5/225, green: 33/225, blue: 70/225, alpha: 1)
+        } else {
+            topView.backgroundColor = UIColor(red: 114/225, green: 163/225, blue: 225/225, alpha: 1)
+            view.backgroundColor = UIColor(red: 74/225, green: 136/225, blue: 215/225, alpha: 1)
+        }
+    }
 }
